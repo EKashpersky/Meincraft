@@ -81,9 +81,12 @@ void Model::addEBO(const std::vector<GLuint> &indices) {
 void Model::deleteData() {
   if (m_renderInfo.vao)
     glDeleteVertexArrays(1, &m_renderInfo.vao);
-  if (m_buffers.size() > 0)
-    glDeleteBuffers(static_cast<GLsizei>(m_buffers.size()),
-                    m_buffers.data());
+  if (!m_buffers.empty()) {
+    glDeleteBuffers(
+      static_cast<GLsizei>(m_buffers.size()),
+      m_buffers.data()
+    );
+  }
 
   m_buffers.clear();
 

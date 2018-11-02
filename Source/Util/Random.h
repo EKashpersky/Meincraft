@@ -27,7 +27,7 @@ private:
 template<typename REngine = std::mt19937>
 class Random {
 public:
-  Random(int n = std::time(nullptr)) {
+  Random(time_t n = std::time(nullptr)) {
     m_randomEngine.seed(n);
     for (int i = 0; i < 5; i++)
       intInRange(i, i * 5);

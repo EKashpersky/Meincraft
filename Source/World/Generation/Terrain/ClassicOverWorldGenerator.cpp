@@ -28,12 +28,13 @@ void ClassicOverWorldGenerator::setUpNoise() {
     std::cout << "making noise\n";
     noiseGen = true;
 
-    NoiseParameters biomeParmams;
-    biomeParmams.octaves = 5;
-    biomeParmams.amplitude = 120;
-    biomeParmams.smoothness = 1035;
-    biomeParmams.heightOffset = 0;
-    biomeParmams.roughness = 0.75;
+    NoiseParameters biomeParmams = {
+      .octaves = 5,
+      .amplitude = 120,
+      .smoothness = 1035,
+      .heightOffset = 0,
+      .roughness = 0.75
+    };
 
     m_biomeNoiseGen.setParameters(biomeParmams);
   }
@@ -87,7 +88,7 @@ void ClassicOverWorldGenerator::getHeightIn(int xMin, int zMin, int xMax,
                                     zMin, zMax,
                                     x, z);
 
-      m_heightMap.get(x, z) = h;
+      m_heightMap.get(x, z) = static_cast<int>(h);
     }
   //exit(0);
 }
@@ -108,8 +109,12 @@ void ClassicOverWorldGenerator::getBiomeMap() {
 
   for (int x = 0; x < CHUNK_SIZE + 1; x++)
     for (int z = 0; z < CHUNK_SIZE + 1; z++) {
-      int h = m_biomeNoiseGen.getHeight(x, z, location.x + 10,
-                                        location.y + 10);
+      int h = m_biomeNoiseGen.getHeight(
+        x,
+        z,
+        location.x + 10,
+        location.y + 10
+      );
       m_biomeMap.get(x, z) = h;
     }
 }

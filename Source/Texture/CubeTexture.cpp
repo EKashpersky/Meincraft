@@ -25,8 +25,17 @@ void CubeTexture::loadFromFiles(const std::array<std::string, 6> &files) {
     auto width = image.getSize().x;
     auto height = image.getSize().y;
 
-    glTexImage2D(param, 0, GL_RGBA, width, height,
-                 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr());
+    glTexImage2D(
+      static_cast<GLenum>(param),
+      0,
+      GL_RGBA,
+      width,
+      height,
+      0,
+      GL_RGBA,
+      GL_UNSIGNED_BYTE,
+      image.getPixelsPtr()
+    );
   }
 
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

@@ -42,7 +42,6 @@ bool ChunkManager::chunkLoadedAt(int x, int z) const {
   return m_chunks.at({x, z}).hasLoaded();
 }
 
-
 bool ChunkManager::chunkExistsAt(int x, int z) const {
   return m_chunks.find({x, z}) != m_chunks.end();
 }
@@ -63,7 +62,8 @@ const TerrainGenerator &ChunkManager::getTerrainGenerator() const noexcept {
 
 void ChunkManager::unloadChunk(int x, int z) {
   ///@TODO Save chunk to file ?
-  if (chunkExistsAt(x, z))
+  if (chunkExistsAt(x, z)){
     m_chunks.erase({x, z});
+  }
 }
 

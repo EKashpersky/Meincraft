@@ -25,17 +25,23 @@ public:
 private:
   void setActiveMesh(ChunkBlock block);
 
-  void addXBlockToMesh(const sf::Vector2i &textureCoords,
-                       const sf::Vector3i &blockPosition);
+  void addXBlockToMesh(
+    const sf::Vector2i &textureCoords,
+    const sf::Vector3i &blockPosition
+  );
 
-  void tryAddFaceToMesh(const std::array<GLfloat, 12> &blockFace,
-                        const sf::Vector2i &textureCoords,
-                        const sf::Vector3i &blockPosition,
-                        const sf::Vector3i &blockFacing,
-                        GLfloat cardinalLight);
+  void tryAddFaceToMesh(
+    const std::array<GLfloat, 12> &blockFace,
+    const sf::Vector2i &textureCoords,
+    const sf::Vector3i &blockPosition,
+    const sf::Vector3i &blockFacing,
+    GLfloat cardinalLight
+  );
 
-  bool shouldMakeFace(const sf::Vector3i &blockPosition,
-                      const BlockDataHolder &blockData);
+  bool shouldMakeFace(
+    const sf::Vector3i &blockPosition,
+    const BlockDataHolder &blockData
+  );
 
   bool shouldMakeLayer(int y);
 

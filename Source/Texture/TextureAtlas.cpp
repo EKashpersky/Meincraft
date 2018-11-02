@@ -14,22 +14,20 @@ TextureAtlas::TextureAtlas(const std::string &textureFileName) {
 }
 
 std::array<GLfloat, 8> TextureAtlas::getTexture(const sf::Vector2i &coords) {
-  static const GLfloat TEX_PER_ROW =
-    (GLfloat) m_imageSize / (GLfloat) m_individualTextureSize;
+  static const GLfloat TEX_PER_ROW = static_cast<GLfloat>(m_imageSize) / static_cast<GLfloat>(m_individualTextureSize);
   static const GLfloat INDV_TEX_SIZE = 1.0f / TEX_PER_ROW;
   static const GLfloat PIXEL_SIZE = 1.0f / (float) m_imageSize;
 
-  GLfloat xMin = (coords.x * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
-  GLfloat yMin = (coords.y * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
+  auto xMin = static_cast<GLfloat>((coords.x * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE);
+  auto yMin = static_cast<GLfloat>((coords.y * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE);
 
-  GLfloat xMax = (xMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
-  GLfloat yMax = (yMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
+  auto xMax = static_cast<GLfloat>(xMin + INDV_TEX_SIZE - 0.5 * PIXEL_SIZE);
+  auto yMax = static_cast<GLfloat>(yMin + INDV_TEX_SIZE - 0.5 * PIXEL_SIZE);
 
-  return
-    {
-      xMax, yMax,
-      xMin, yMax,
-      xMin, yMin,
-      xMax, yMin
-    };
+  return {
+    xMax, yMax,
+    xMin, yMax,
+    xMin, yMin,
+    xMax, yMin
+  };
 }

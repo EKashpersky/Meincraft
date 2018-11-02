@@ -10,9 +10,8 @@ ChunkBlock Biome::getBeachBlock(Rand &rand) const {
   return BlockId::Sand;
 }
 
-
 int Biome::getHeight(int x, int z, int chunkX, int chunkZ) const {
-  return m_heightGenerator.getHeight(x, z, chunkX, chunkZ);
+  return static_cast<int>(m_heightGenerator.getHeight(x, z, chunkX, chunkZ));
 }
 
 int Biome::getTreeFrequency() const noexcept {

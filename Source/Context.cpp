@@ -2,9 +2,6 @@
 
 #include <glad.h>
 
-unsigned int g_X;
-unsigned int g_Y;
-
 Context::Context(const Config &config) {
   sf::ContextSettings settings;
   settings.antialiasingLevel = 0;
@@ -24,7 +21,6 @@ Context::Context(const Config &config) {
   }
 
   if (!gladLoadGL()) {
-
     exit(-1);
   }
 

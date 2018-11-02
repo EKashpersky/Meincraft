@@ -41,7 +41,7 @@ void Application::runLoop() {
 }
 
 void Application::handleEvents() {
-  sf::Event e;
+  auto e = sf::Event();
   while (m_context.window.pollEvent(e)) {
     switch (e.type) {
       case sf::Event::Closed:

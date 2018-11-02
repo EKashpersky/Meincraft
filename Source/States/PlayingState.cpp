@@ -18,8 +18,10 @@ StatePlaying::StatePlaying(Application &app, const Config &config)
   m_crosshair.setSize({21, 21});
   m_crosshair.setOrigin(m_crosshair.getGlobalBounds().width / 2,
                         m_crosshair.getGlobalBounds().height / 2);
-  m_crosshair.setPosition(app.getWindow().getSize().x / 2,
-                          app.getWindow().getSize().y / 2);
+  m_crosshair.setPosition(
+    app.getWindow().getSize().x / 2.f,
+    app.getWindow().getSize().y / 2.f
+  );
 }
 
 void StatePlaying::handleEvent(sf::Event e) {}
@@ -30,14 +32,21 @@ void StatePlaying::handleInput(bool isMouseGrabbed) {
   static sf::Clock timer;
   glm::vec3 lastPosition;
 
-  for (Ray ray(
-    {m_player.position.x, m_player.position.y + 0.6f, m_player.position.z},
-    m_player.rotation); //Corrected for camera offset
-       ray.getLength() < 6;
-       ray.step(0.05)) {
-    int x = ray.getEnd().x;
-    int y = ray.getEnd().y;
-    int z = ray.getEnd().z;
+  for (
+    Ray ray(
+      {
+        m_player.position.x,
+        m_player.position.y + 0.6f,
+        m_player.position.z
+      },
+      m_player.rotation
+    ); //Corrected for camera offset
+    ray.getLength() < 6;
+    ray.step(0.05))
+  {
+    int x = static_cast<int>(ray.getEnd().x);
+    int y = static_cast<int>(ray.getEnd().y);
+    int z = static_cast<int>(ray.getEnd().z);
 
     auto block = m_world.getBlock(x, y, z);
     auto id = (BlockId) block.id;
@@ -46,13 +55,11 @@ void StatePlaying::handleInput(bool isMouseGrabbed) {
       if (timer.getElapsedTime().asSeconds() > 0.2) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
           timer.restart();
-          m_world.addEvent<PlayerDigEvent>(sf::Mouse::Left, ray.getEnd(),
-                                           m_player);
+          m_world.addEvent<PlayerDigEvent>(sf::Mouse::Left, ray.getEnd(), m_player);
           break;
         } else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
           timer.restart();
-          m_world.addEvent<PlayerDigEvent>(sf::Mouse::Right, lastPosition,
-                                           m_player);
+          m_world.addEvent<PlayerDigEvent>(sf::Mouse::Right, lastPosition, m_player);
           break;
         }
       }

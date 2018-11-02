@@ -6,15 +6,13 @@
 constexpr BlockId CACTUS = BlockId::Cactus;
 
 namespace {
-  void makeCactus1(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y,
-                   int z) {
+  void makeCactus1(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y, int z) {
     StructureBuilder builder;
     builder.makeColumn(x, z, y, rand.intInRange(4, 7), CACTUS);
     builder.build(chunk);
   }
 
-  void makeCactus2(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y,
-                   int z) {
+  void makeCactus2(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y, int z) {
     StructureBuilder builder;
     int height = rand.intInRange(6, 8);
     builder.makeColumn(x, z, y, height, CACTUS);
@@ -30,8 +28,7 @@ namespace {
   }
 
 
-  void makeCactus3(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y,
-                   int z) {
+  void makeCactus3(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y, int z) {
     StructureBuilder builder;
     int height = rand.intInRange(6, 8);
     builder.makeColumn(x, z, y, height, CACTUS);
@@ -47,8 +44,7 @@ namespace {
   }
 }
 
-void makeOakTree(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y,
-                 int z) {
+void makeOakTree(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y, int z) {
   StructureBuilder builder;
 
   int h = rand.intInRange(4, 7);
@@ -72,8 +68,7 @@ void makeOakTree(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y,
   builder.build(chunk);
 }
 
-void makePalmTree(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y,
-                  int z) {
+void makePalmTree(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y, int z) {
   StructureBuilder builder;
 
   int height = rand.intInRange(7, 9);
@@ -111,5 +106,9 @@ makeCactus(Chunk &chunk, Random<std::minstd_rand> &rand, int x, int y, int z) {
 
     case 2:
       makeCactus3(chunk, rand, x, y, z);
+    break;
+
+    default:
+    break;
   }
 }

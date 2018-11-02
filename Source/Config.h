@@ -2,8 +2,8 @@
 #define CONFIG_H_INCLUDED
 
 struct Config {
-  int windowX = 1280;
-  int windowY = 720;
+  unsigned int windowX = 1280;
+  unsigned int windowY = 720;
   bool isFullscreen = false;
   int renderDistance = 16;
   int fov = 90;

@@ -62,18 +62,15 @@ int Chunk::getHeightAt(int x, int z) {
 
 
 bool Chunk::outOfBound(int x, int y, int z) const noexcept {
-  if (x >= CHUNK_SIZE) return true;
-  if (z >= CHUNK_SIZE) return true;
-
-  if (x < 0) return true;
-  if (y < 0) return true;
-  if (z < 0) return true;
-
-  if (y >= (int) m_chunks.size() * CHUNK_SIZE) {
+  if (x >= CHUNK_SIZE || z >= CHUNK_SIZE) {
     return true;
   }
 
-  return false;
+  if (x < 0 || y < 0 || z < 0) {
+    return true;
+  }
+
+  return y >= (static_cast<int>(m_chunks.size()) * CHUNK_SIZE);
 }
 
 void Chunk::drawChunks(RenderMaster &renderer, const Camera &camera) {
@@ -111,15 +108,14 @@ ChunkSection &Chunk::getSection(int index) {
 }
 
 void Chunk::deleteMeshes() {
-  for (unsigned i = 0; i < m_chunks.size(); i++) {
-    m_chunks[i].deleteMeshes();
+  for (auto& chunk : m_chunks) {
+    chunk.deleteMeshes();
   }
 }
 
 void Chunk::addSection() {
-  int y = m_chunks.size();
-  m_chunks.emplace_back(sf::Vector3i(m_location.x, y, m_location.y),
-                        *m_pWorld);
+  int y = static_cast<int>(m_chunks.size());
+  m_chunks.emplace_back(sf::Vector3i(m_location.x, y, m_location.y), *m_pWorld);
 }
 
 void Chunk::addSectionsBlockTarget(int blockY) {

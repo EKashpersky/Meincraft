@@ -78,8 +78,8 @@ void World::update(const Camera &camera) {
 void World::loadChunks(const Camera &camera) {
   while (m_isRunning) {
     bool isMeshMade = false;
-    int cameraX = camera.position.x / CHUNK_SIZE;
-    int cameraZ = camera.position.z / CHUNK_SIZE;
+    int cameraX = static_cast<int>(camera.position.x / CHUNK_SIZE);
+    int cameraZ = static_cast<int>(camera.position.z / CHUNK_SIZE);
 
     for (int i = 0; i < m_loadDistance; i++) {
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -93,12 +93,11 @@ void World::loadChunks(const Camera &camera) {
           std::unique_lock<std::mutex> lock(m_mainMutex);
           isMeshMade = m_chunkManager.makeMesh(x, z, camera);
         }
-        //if (isMeshMade)
-        //   break;
       }
 
-      if (isMeshMade)
+      if (isMeshMade) {
         break;
+      }
     }
 
     if (!isMeshMade) {
