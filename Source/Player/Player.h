@@ -14,50 +14,52 @@
 #include "../ToggleKey.h"
 
 class World;
+
 class RenderMaster;
 
-class Player : public Entity
-{
-    public:
-        Player();
+class Player : public Entity {
+public:
+  Player();
 
-        void handleInput(const sf::RenderWindow& window);
+  void handleInput(const sf::RenderWindow &window);
 
-        void update(float dt, World& wolrd);
-        void collide(World& world, const glm::vec3& vel, float dt);
+  void update(float dt, World &wolrd);
 
-        void addItem(const Material& material);
+  void collide(World &world, const glm::vec3 &vel, float dt);
 
-        void draw(RenderMaster& master);
+  void addItem(const Material &material);
 
-        ItemStack& getHeldItems();
+  void draw(RenderMaster &master);
 
-    private:
-        void jump();
+  ItemStack &getHeldItems();
 
-        void keyboardInput();
-        void mouseInput(const sf::RenderWindow& window);
-        bool m_isOnGround = false;
-        bool m_isFlying   = false;
+private:
+  void jump();
 
-        std::vector<ItemStack> m_items;
-        std::vector<sf::Text>  m_itemText;
-        sf::Text m_posPrint;
-        int m_heldItem = 0;
+  void keyboardInput();
 
-        ToggleKey m_itemDown;
-        ToggleKey m_itemUp;
-        ToggleKey m_flyKey;
+  void mouseInput(const sf::RenderWindow &window);
 
-        ToggleKey m_num1;
-        ToggleKey m_num2;
-        ToggleKey m_num3;
-        ToggleKey m_num4;
-        ToggleKey m_num5;
+  bool m_isOnGround = false;
+  bool m_isFlying = false;
 
-        glm::vec3 m_acceleration;
+  std::vector<ItemStack> m_items;
+  std::vector<sf::Text> m_itemText;
+  sf::Text m_posPrint;
+  int m_heldItem = 0;
+
+  ToggleKey m_itemDown;
+  ToggleKey m_itemUp;
+  ToggleKey m_flyKey;
+
+  ToggleKey m_num1;
+  ToggleKey m_num2;
+  ToggleKey m_num3;
+  ToggleKey m_num4;
+  ToggleKey m_num5;
+
+  glm::vec3 m_acceleration;
 };
-
 
 
 #endif // PLAYER_H_INCLUDED

@@ -3,19 +3,19 @@
 
 #include "Shader.h"
 
-class SkyboxShader : public Shader
-{
-    public:
-        SkyboxShader();
+class SkyboxShader : public Shader {
+public:
+  SkyboxShader();
 
-        void loadViewMatrix         (glm::mat4 viewMatrix);
-        void loadProjectionMatrix   (const glm::mat4& proj);
+  void loadViewMatrix(glm::mat4 viewMatrix);
 
-    private:
-        void getUniforms() override;
+  void loadProjectionMatrix(const glm::mat4 &proj);
 
-        GLuint m_locationProjection;
-        GLuint m_locationView;
+private:
+  void getUniforms() override;
+
+  GLuint m_locationProjection;
+  GLuint m_locationView;
 };
 
 #endif // SKYBOXSHADER_H_INCLUDED

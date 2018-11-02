@@ -13,31 +13,33 @@ class World;
 
 using ChunkMap = std::unordered_map<VectorXZ, Chunk>;
 
-class ChunkManager
-{
-    public:
-        ChunkManager(World& world);
+class ChunkManager {
+public:
+  ChunkManager(World &world);
 
-        Chunk&      getChunk    (int x, int z);
-        ChunkMap&   getChunks   ();
+  Chunk &getChunk(int x, int z);
 
-        bool makeMesh(int x, int z, const Camera& camera);
+  ChunkMap &getChunks();
 
-        bool chunkLoadedAt(int x, int z) const;
-        bool chunkExistsAt(int x, int z) const;
+  bool makeMesh(int x, int z, const Camera &camera);
 
-        void loadChunk(int x, int z);
-        void unloadChunk(int x, int z);
+  bool chunkLoadedAt(int x, int z) const;
 
-        void deleteMeshes();
+  bool chunkExistsAt(int x, int z) const;
 
-        const TerrainGenerator& getTerrainGenerator() const noexcept;
+  void loadChunk(int x, int z);
 
-    private:
-        ChunkMap m_chunks;
-        std::unique_ptr<TerrainGenerator> m_terrainGenerator;
+  void unloadChunk(int x, int z);
 
-        World* m_world;
+  void deleteMeshes();
+
+  const TerrainGenerator &getTerrainGenerator() const noexcept;
+
+private:
+  ChunkMap m_chunks;
+  std::unique_ptr<TerrainGenerator> m_terrainGenerator;
+
+  World *m_world;
 };
 
 #endif // CHUNKMANAGER_H_INCLUDED

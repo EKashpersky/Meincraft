@@ -16,57 +16,63 @@
 #include "../Config.h"
 
 class RenderMaster;
+
 class Camera;
+
 class Player;
 
 struct Entity;
 
-class World : public NonCopyable
-{
-    public:
-        World(const Camera& camera, const Config& config, Player& player);
-        ~World();
+class World : public NonCopyable {
+public:
+  World(const Camera &camera, const Config &config, Player &player);
 
-        ChunkBlock  getBlock    (int x, int y, int z);
-        void        setBlock    (int x, int y, int z, ChunkBlock block);
+  ~World();
 
-        void update(const Camera& camera);
-        void updateChunk(int blockX, int blockY, int blockZ);
+  ChunkBlock getBlock(int x, int y, int z);
 
-        void renderWorld(RenderMaster& master, const Camera& camera);
+  void setBlock(int x, int y, int z, ChunkBlock block);
 
-        ChunkManager& getChunkManager();
+  void update(const Camera &camera);
 
-        static VectorXZ getBlockXZ(int x, int z);
-        static VectorXZ getChunkXZ(int x, int z);
+  void updateChunk(int blockX, int blockY, int blockZ);
 
-        void collisionTest(Entity& entity);
+  void renderWorld(RenderMaster &master, const Camera &camera);
 
-        template<typename T, typename... Args>
-        void addEvent(Args&&... args)
-        {
-            m_events.push_back(std::make_unique<T>(std::forward<Args>(args)...));
-        }
+  ChunkManager &getChunkManager();
 
-    private:
-        void loadChunks     (const Camera& camera);
-        void updateChunks   ();
-        void setSpawnPoint  ();
+  static VectorXZ getBlockXZ(int x, int z);
 
-        ChunkManager m_chunkManager;
+  static VectorXZ getChunkXZ(int x, int z);
 
-        std::vector<std::unique_ptr<IWorldEvent>> m_events;
-        std::unordered_map<sf::Vector3i, ChunkSection*> m_chunkUpdates;
+  void collisionTest(Entity &entity);
 
-        std::atomic<bool> m_isRunning {true};
-        std::vector<std::thread> m_chunkLoadThreads;
-        std::mutex m_mainMutex;
-        std::mutex m_genMutex;
+  template<typename T, typename... Args>
+  void addEvent(Args &&... args) {
+    m_events.push_back(std::make_unique<T>(std::forward<Args>(args)...));
+  }
 
-        int m_loadDistance = 2;
-        const int m_renderDistance;
+private:
+  void loadChunks(const Camera &camera);
 
-        glm::vec3 m_playerSpawnPoint;
+  void updateChunks();
+
+  void setSpawnPoint();
+
+  ChunkManager m_chunkManager;
+
+  std::vector<std::unique_ptr<IWorldEvent>> m_events;
+  std::unordered_map<sf::Vector3i, ChunkSection *> m_chunkUpdates;
+
+  std::atomic<bool> m_isRunning{true};
+  std::vector<std::thread> m_chunkLoadThreads;
+  std::mutex m_mainMutex;
+  std::mutex m_genMutex;
+
+  int m_loadDistance = 2;
+  const int m_renderDistance;
+
+  glm::vec3 m_playerSpawnPoint;
 };
 
 #endif // WORLD_H_INCLUDED

@@ -18,39 +18,41 @@
 
 class Chunk;
 
-class ClassicOverWorldGenerator : public TerrainGenerator
-{
-    public:
-        ClassicOverWorldGenerator();
+class ClassicOverWorldGenerator : public TerrainGenerator {
+public:
+  ClassicOverWorldGenerator();
 
-        void generateTerrainFor     (Chunk& chunk)      override;
-        int  getMinimumSpawnHeight  () const noexcept   override;
+  void generateTerrainFor(Chunk &chunk) override;
 
-    private:
-        static void setUpNoise();
+  int getMinimumSpawnHeight() const noexcept override;
 
-        void setBlocks(int maxHeight);
+private:
+  static void setUpNoise();
 
-        void getHeightIn (int xMin, int zMin, int xMax, int zMax);
-        void getHeightMap();
-        void getBiomeMap ();
+  void setBlocks(int maxHeight);
 
-        const Biome& getBiome(int x, int z) const;
+  void getHeightIn(int xMin, int zMin, int xMax, int zMax);
 
-        Array2D<int, CHUNK_SIZE>        m_heightMap;
-        Array2D<int, CHUNK_SIZE + 1>    m_biomeMap;
+  void getHeightMap();
 
-        Random<std::minstd_rand> m_random;
+  void getBiomeMap();
 
-        static NoiseGenerator m_biomeNoiseGen;
+  const Biome &getBiome(int x, int z) const;
 
-        GrasslandBiome          m_grassBiome;
-        TemperateForestBiome    m_temperateForest;
-        DesertBiome             m_desertBiome;
-        OceanBiome              m_oceanBiome;
-        LightForest             m_lightForest;
+  Array2D<int, CHUNK_SIZE> m_heightMap;
+  Array2D<int, CHUNK_SIZE + 1> m_biomeMap;
 
-        Chunk* m_pChunk = nullptr;
+  Random<std::minstd_rand> m_random;
+
+  static NoiseGenerator m_biomeNoiseGen;
+
+  GrasslandBiome m_grassBiome;
+  TemperateForestBiome m_temperateForest;
+  DesertBiome m_desertBiome;
+  OceanBiome m_oceanBiome;
+  LightForest m_lightForest;
+
+  Chunk *m_pChunk = nullptr;
 };
 
 #endif // CLASSICOVERWORLDGENERATOR_H_INCLUDED

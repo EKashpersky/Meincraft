@@ -2,5 +2,4 @@
 #define ITEMTYPE_H_INCLUDED
 
 
-
 #endif // ITEMTYPE_H_INCLUDED

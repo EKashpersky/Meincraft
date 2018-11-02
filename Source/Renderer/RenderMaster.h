@@ -11,30 +11,31 @@
 #include "../Config.h"
 
 class Camera;
+
 class ChunkSection;
 
-class RenderMaster
-{
-    public:
-        void drawSFML(const sf::Drawable& drawable);
-        void drawChunk(const ChunkSection& chunk);
-        void drawSky();
+class RenderMaster {
+public:
+  void drawSFML(const sf::Drawable &drawable);
 
-        void finishRender(sf::RenderWindow& window, const Camera& camera);
+  void drawChunk(const ChunkSection &chunk);
 
-    private:
-        //Chunks
-        ChunkRenderer   m_chunkRenderer;
-        WaterRenderer   m_waterRenderer;
-        FloraRenderer   m_floraRenderer;
+  void drawSky();
 
-        //Detail
-        SkyboxRenderer  m_skyboxRenderer;
-        SFMLRenderer    m_sfmlRenderer;
+  void finishRender(sf::RenderWindow &window, const Camera &camera);
 
-        bool m_drawBox = false;
+private:
+  //Chunks
+  ChunkRenderer m_chunkRenderer;
+  WaterRenderer m_waterRenderer;
+  FloraRenderer m_floraRenderer;
+
+  //Detail
+  SkyboxRenderer m_skyboxRenderer;
+  SFMLRenderer m_sfmlRenderer;
+
+  bool m_drawBox = false;
 };
-
 
 
 #endif // RENDERMASTER_H_INCLUDED

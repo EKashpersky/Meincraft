@@ -5,11 +5,10 @@
 
 #include "Config.h"
 
-struct Context
-{
-    Context(const Config& config);
+struct Context {
+  Context(const Config &config);
 
-    sf::RenderWindow window;
+  sf::RenderWindow window;
 };
 
 #endif // CONTEXT_H_INCLUDED

@@ -7,34 +7,39 @@
 
 #include "Renderer/RenderInfo.h"
 
-class Model : public NonCopyable
-{
-    public:
-        Model() = default;
-        Model(const Mesh& mesh);
-        ~Model();
+class Model : public NonCopyable {
+public:
+  Model() = default;
 
-        Model(Model&& other);
-        Model& operator= (Model&& other);
+  Model(const Mesh &mesh);
 
-        void addData(const Mesh& mesh);
+  ~Model();
 
-        void deleteData();
+  Model(Model &&other);
 
-        void genVAO();
-        void addEBO(const std::vector<GLuint>& indices);
-        void addVBO(int dimensions, const std::vector<GLfloat>& data);
-        void bindVAO() const;
+  Model &operator=(Model &&other);
 
-        int getIndicesCount() const;
+  void addData(const Mesh &mesh);
 
-        const RenderInfo& getRenderInfo() const;
+  void deleteData();
 
-    private:
-        RenderInfo m_renderInfo;
+  void genVAO();
 
-        int m_vboCount = 0;
-        std::vector<GLuint> m_buffers;
+  void addEBO(const std::vector<GLuint> &indices);
+
+  void addVBO(int dimensions, const std::vector<GLfloat> &data);
+
+  void bindVAO() const;
+
+  int getIndicesCount() const;
+
+  const RenderInfo &getRenderInfo() const;
+
+private:
+  RenderInfo m_renderInfo;
+
+  int m_vboCount = 0;
+  std::vector<GLuint> m_buffers;
 };
 
 #endif // MODEL_H_INCLUDED

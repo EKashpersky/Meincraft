@@ -3,14 +3,16 @@
 
 #include "BasicShader.h"
 
-class WaterShader : public BasicShader
-{
-    public:
-        WaterShader();
-        void loadTime (const float& time);
-    private:
-        void getUniforms() override;
-        GLuint m_time;
+class WaterShader : public BasicShader {
+public:
+  WaterShader();
+
+  void loadTime(const float &time);
+
+private:
+  void getUniforms() override;
+
+  GLuint m_time;
 };
 
 #endif // WATERSHADER_H_INCLUDED

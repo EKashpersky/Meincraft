@@ -5,10 +5,10 @@
 #include <SFML/Graphics.hpp>
 
 //WIP
-class Controller
-{
-    glm::vec3       translateInput();
-    sf::Vector2i    mouseInput();
+class Controller {
+  glm::vec3 translateInput();
+
+  sf::Vector2i mouseInput();
 };
 
 #endif // CONTROLLER_H_INCLUDED

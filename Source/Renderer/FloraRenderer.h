@@ -7,19 +7,21 @@
 #include "../Shaders/FloraShader.h"
 
 struct RenderInfo;
+
 class ChunkMesh;
+
 class Camera;
 
-class FloraRenderer
-{
-    public:
-        void add(const ChunkMesh& mesh);
-        void render(const Camera& camera);
+class FloraRenderer {
+public:
+  void add(const ChunkMesh &mesh);
 
-    private:
-        std::vector<const RenderInfo*> m_chunks;
+  void render(const Camera &camera);
 
-        FloraShader m_shader;
+private:
+  std::vector<const RenderInfo *> m_chunks;
+
+  FloraShader m_shader;
 };
 
 
