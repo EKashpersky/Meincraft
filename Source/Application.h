@@ -26,18 +26,18 @@ public:
     s->onOpen();
   }
 
-  void popState();
-
   Camera &getCamera() { return m_camera; }
 
   const sf::RenderWindow &getWindow() const { return m_context.window; }
 
-  void turnOffMouse();
+  void grabMouse();
 
-  void turnOnMouse();
+  void releaseMouse();
 
 private:
   void handleEvents();
+
+  bool m_isMouseGrabbed;
 
   std::vector<std::unique_ptr<StateBase>> m_states;
 

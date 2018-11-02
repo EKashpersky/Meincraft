@@ -11,7 +11,6 @@ Application::Application(const Config &config)
 
 float g_timeElapsed = 0;
 
-
 void Application::runLoop() {
   sf::Clock dtTimer;
   sf::Clock dt;
@@ -22,7 +21,7 @@ void Application::runLoop() {
     auto deltaTime = dtTimer.restart();
     auto &state = *m_states.back();
 
-    state.handleInput();
+    state.handleInput(m_isMouseGrabbed);
     state.update(deltaTime.asSeconds());
     m_camera.update();
 
@@ -47,35 +46,41 @@ void Application::handleEvents() {
     switch (e.type) {
       case sf::Event::Closed:
         m_context.window.close();
-        break;
+      break;
+
+      case sf::Event::MouseButtonPressed:
+        if (!m_isMouseGrabbed) {
+          grabMouse();
+        }
+      break;
 
       case sf::Event::KeyPressed:
         switch (e.key.code) {
           case sf::Keyboard::Escape:
-            m_context.window.close();
-            break;
+            releaseMouse();
+          break;
 
           default:
-            break;
+          break;
         }
         break;
 
       default:
-        break;
+      break;
     }
   }
 }
 
+void Application::grabMouse () {
+  m_isMouseGrabbed = true;
 
-void Application::popState() {
-  m_isPopState = true;
-}
-
-void Application::turnOffMouse() {
+  m_context.window.setMouseCursorGrabbed(true);
   m_context.window.setMouseCursorVisible(false);
 }
 
-void Application::turnOnMouse() {
+void Application::releaseMouse() {
+  m_isMouseGrabbed = false;
+
+  m_context.window.setMouseCursorGrabbed(false);
   m_context.window.setMouseCursorVisible(true);
 }
-

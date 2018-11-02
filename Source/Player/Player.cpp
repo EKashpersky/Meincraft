@@ -50,9 +50,9 @@ ItemStack &Player::getHeldItems() {
 }
 
 
-void Player::handleInput(const sf::RenderWindow &window) {
+void Player::handleInput(const sf::RenderWindow &window, bool isMouseGrabbed) {
   keyboardInput();
-  mouseInput(window);
+  mouseInput(window, isMouseGrabbed);
 
   if (m_itemDown.isKeyPressed()) {
     m_heldItem++;
@@ -187,7 +187,7 @@ void Player::keyboardInput() {
   }
 }
 
-void Player::mouseInput(const sf::RenderWindow &window) {
+void Player::mouseInput(const sf::RenderWindow &window, bool isMouseGrabbed) {
   static bool useMouse = true;
   static ToggleKey useMouseKey(sf::Keyboard::L);
 
@@ -195,7 +195,7 @@ void Player::mouseInput(const sf::RenderWindow &window) {
     useMouse = !useMouse;
   }
 
-  if (!useMouse) {
+  if (!useMouse || !isMouseGrabbed) {
     return;
   }
 
@@ -253,9 +253,3 @@ void Player::jump() {
     m_acceleration.y += speed * 3;
   }
 }
-
-
-
-
-
-

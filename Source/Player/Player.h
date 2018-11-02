@@ -21,7 +21,7 @@ class Player : public Entity {
 public:
   Player();
 
-  void handleInput(const sf::RenderWindow &window);
+  void handleInput(const sf::RenderWindow &window, bool isMouseGrabbed);
 
   void update(float dt, World &wolrd);
 
@@ -38,7 +38,7 @@ private:
 
   void keyboardInput();
 
-  void mouseInput(const sf::RenderWindow &window);
+  void mouseInput(const sf::RenderWindow &window, bool isMouseGrabbed);
 
   bool m_isOnGround = false;
   bool m_isFlying = false;

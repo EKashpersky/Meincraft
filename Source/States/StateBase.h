@@ -16,7 +16,7 @@ public:
 
   virtual void handleEvent(sf::Event e) = 0;
 
-  virtual void handleInput() = 0;
+  virtual void handleInput(bool isMouseGrabbed) = 0;
 
   virtual void update(float deltaTime) = 0;
 

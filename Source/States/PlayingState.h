@@ -15,7 +15,7 @@ public:
 
   void handleEvent(sf::Event e) override;
 
-  void handleInput() override;
+  void handleInput(bool isMouseGrabbed) override;
 
   void update(float deltaTime) override;
 

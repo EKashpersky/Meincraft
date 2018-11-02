@@ -24,8 +24,8 @@ StatePlaying::StatePlaying(Application &app, const Config &config)
 
 void StatePlaying::handleEvent(sf::Event e) {}
 
-void StatePlaying::handleInput() {
-  m_player.handleInput(m_pApplication->getWindow());
+void StatePlaying::handleInput(bool isMouseGrabbed) {
+  m_player.handleInput(m_pApplication->getWindow(), isMouseGrabbed);
 
   static sf::Clock timer;
   glm::vec3 lastPosition;
@@ -59,8 +59,6 @@ void StatePlaying::handleInput() {
     }
     lastPosition = ray.getEnd();
   }
-
-
 }
 
 void StatePlaying::update(float deltaTime) {
@@ -71,8 +69,6 @@ void StatePlaying::update(float deltaTime) {
   m_fpsCounter.update();
   m_player.update(deltaTime, m_world);
   m_world.update(m_pApplication->getCamera());
-
-
 }
 
 void StatePlaying::render(RenderMaster &renderer) {
@@ -96,5 +92,5 @@ void StatePlaying::render(RenderMaster &renderer) {
 }
 
 void StatePlaying::onOpen() {
-  m_pApplication->turnOffMouse();
+  m_pApplication->grabMouse();
 }
