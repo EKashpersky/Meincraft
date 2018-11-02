@@ -7,19 +7,21 @@
 #include "../Shaders/WaterShader.h"
 
 struct RenderInfo;
+
 class ChunkMesh;
+
 class Camera;
 
-class WaterRenderer
-{
-    public:
-        void add(const ChunkMesh& mesh);
-        void render(const Camera& camera);
+class WaterRenderer {
+public:
+  void add(const ChunkMesh &mesh);
 
-    private:
-        std::vector<const RenderInfo*> m_chunks;
+  void render(const Camera &camera);
 
-        WaterShader m_shader;
+private:
+  std::vector<const RenderInfo *> m_chunks;
+
+  WaterShader m_shader;
 };
 
 #endif // WATERRENDERER_H_INCLUDED

@@ -3,24 +3,22 @@
 
 #include "../BlockData.h"
 
-class BlockType : public NonCopyable
-{
-    public:
-        BlockType(const std::string& fileName);
-        virtual ~BlockType() = default;
+class BlockType : public NonCopyable {
+public:
+  BlockType(const std::string &fileName);
 
-        const BlockData& getData() const ;
+  virtual ~BlockType() = default;
 
-    private:
-        BlockData m_data;
+  const BlockData &getData() const;
+
+private:
+  BlockData m_data;
 };
 
-class DefaultBlock : public BlockType
-{
-    public:
-        DefaultBlock(const std::string& fileName)
-        :   BlockType   (fileName)
-        { }
+class DefaultBlock : public BlockType {
+public:
+  DefaultBlock(const std::string &fileName)
+    : BlockType(fileName) {}
 };
 
 #endif // BLOCKTYPE_H_INCLUDED

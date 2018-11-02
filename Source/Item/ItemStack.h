@@ -3,21 +3,21 @@
 
 #include "Material.h"
 
-class ItemStack
-{
-    public:
-        ItemStack(const Material& material, int amount);
+class ItemStack {
+public:
+  ItemStack(const Material &material, int amount);
 
-        int add(int amount);
-        void remove();
+  int add(int amount);
 
-        int getNumInStack() const;
+  void remove();
 
-        const Material& getMaterial() const;
+  int getNumInStack() const;
 
-    private:
-        const Material* m_pMaterial  = &Material::NOTHING;
-        int             m_numInStack = 0;
+  const Material &getMaterial() const;
+
+private:
+  const Material *m_pMaterial = &Material::NOTHING;
+  int m_numInStack = 0;
 
 };
 

@@ -3,14 +3,16 @@
 
 #include "BasicShader.h"
 
-class FloraShader : public BasicShader
-{
-    public:
-        FloraShader();
-        void loadTime (const float& time);
-    private:
-        void getUniforms() override;
-        GLuint m_time;
+class FloraShader : public BasicShader {
+public:
+  FloraShader();
+
+  void loadTime(const float &time);
+
+private:
+  void getUniforms() override;
+
+  GLuint m_time;
 };
 
 

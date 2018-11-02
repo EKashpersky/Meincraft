@@ -11,21 +11,21 @@
 
 #include "../../Texture/TextureAtlas.h"
 
-class BlockDatabase : public Singleton
-{
-    public:
-        static BlockDatabase& get() ;
+class BlockDatabase : public Singleton {
+public:
+  static BlockDatabase &get();
 
-        const BlockType& getBlock(BlockId id) const;
-        const BlockData& getData (BlockId id) const;
+  const BlockType &getBlock(BlockId id) const;
 
-        TextureAtlas textureAtlas;
+  const BlockData &getData(BlockId id) const;
 
-    private:
-        BlockDatabase();
+  TextureAtlas textureAtlas;
 
-        std::array<std::unique_ptr<BlockType>,
-                    (unsigned)BlockId::NUM_TYPES> m_blocks;
+private:
+  BlockDatabase();
+
+  std::array<std::unique_ptr<BlockType>,
+    (unsigned) BlockId::NUM_TYPES> m_blocks;
 };
 
 #endif // BLOCKDATABASE_H_INCLUDED

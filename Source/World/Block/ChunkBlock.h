@@ -4,29 +4,29 @@
 #include "BlockId.h"
 
 struct BlockDataHolder;
+
 class BlockType;
 
-struct ChunkBlock
-{
-    ChunkBlock() = default;
+struct ChunkBlock {
+  ChunkBlock() = default;
 
-    ChunkBlock(Block_t id);
-    ChunkBlock(BlockId id);
+  ChunkBlock(Block_t id);
 
-    const BlockDataHolder& getData() const;
-    const BlockType& getType() const;
+  ChunkBlock(BlockId id);
 
-    bool operator ==(ChunkBlock other) const
-    {
-        return id == other.id;
-    }
+  const BlockDataHolder &getData() const;
 
-    bool operator !=(ChunkBlock other) const
-    {
-        return id != other.id;
-    }
+  const BlockType &getType() const;
 
-    Block_t id = 0;
+  bool operator==(ChunkBlock other) const {
+    return id == other.id;
+  }
+
+  bool operator!=(ChunkBlock other) const {
+    return id != other.id;
+  }
+
+  Block_t id = 0;
 };
 
 #endif // CHUNKBLOCK_H_INCLUDED

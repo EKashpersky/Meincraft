@@ -1,12 +1,10 @@
 #include "ChunkShader.h"
 
 ChunkShader::ChunkShader()
-:   BasicShader ("Chunk", "Chunk")
-{
-    getUniforms();
+  : BasicShader("Chunk", "Chunk") {
+  getUniforms();
 }
 
-void ChunkShader::getUniforms()
-{
-    BasicShader::getUniforms();
+void ChunkShader::getUniforms() {
+  BasicShader::getUniforms();
 }

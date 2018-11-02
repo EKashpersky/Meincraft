@@ -6,30 +6,32 @@
 #include "Entity.h"
 #include "Config.h"
 
-class Camera : public Entity
-{
-    public:
-        Camera(const Config& config) noexcept;
+class Camera : public Entity {
+public:
+  Camera(const Config &config) noexcept;
 
-        void update() noexcept;
-        void hookEntity(const Entity& entity) noexcept;
+  void update() noexcept;
 
-        const glm::mat4& getViewMatrix ()           const noexcept;
-        const glm::mat4& getProjMatrix ()           const noexcept;
-        const glm::mat4& getProjectionViewMatrix () const noexcept;
+  void hookEntity(const Entity &entity) noexcept;
 
-        const ViewFrustum& getFrustum() const noexcept;
+  const glm::mat4 &getViewMatrix() const noexcept;
 
-    private:
-        const Entity* m_pEntity;
+  const glm::mat4 &getProjMatrix() const noexcept;
 
-        ViewFrustum m_frustum;
+  const glm::mat4 &getProjectionViewMatrix() const noexcept;
 
-        glm::mat4 m_projectionMatrix;
-        glm::mat4 m_viewMatrix;
-        glm::mat4 m_projViewMatrx;
+  const ViewFrustum &getFrustum() const noexcept;
 
-        Config m_config;
+private:
+  const Entity *m_pEntity;
+
+  ViewFrustum m_frustum;
+
+  glm::mat4 m_projectionMatrix;
+  glm::mat4 m_viewMatrix;
+  glm::mat4 m_projViewMatrx;
+
+  Config m_config;
 
 
 };
