@@ -3,7 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
+#include "../World/World.h"
+#include "../Renderer/RenderMaster.h"
 #include "../Entity.h"
 #include "../Item/ItemStack.h"
 #include "../ToggleKey.h"

@@ -1,15 +1,5 @@
 #include "Player.h"
 
-#include <SFML/Graphics.hpp>
-
-#include <iostream>
-#include <sstream>
-#include <iomanip>
-
-#include "../World/World.h"
-
-#include "../Renderer/RenderMaster.h"
-
 sf::Font f;
 
 Player::Player()

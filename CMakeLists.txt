@@ -9,6 +9,12 @@ endif()
 
 project(MCOneWeek)
 
+set(GCC_COMPILER_FLAGS "-o3 -march=native -ffast-math")
+#set(GCC_LINKER_FLAGS "-pg")
+
+SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COMPILER_FLAGS}")
+SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINKER_FLAGS}")
+
 #Add the files
 file(GLOB_RECURSE SOURCES Source/*.cpp)
 add_executable(MCOneWeek ${SOURCES})
