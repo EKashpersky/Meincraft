@@ -8,7 +8,7 @@
 
 class Camera : public Entity {
 public:
-  Camera(const Config &config) noexcept;
+  explicit Camera(const Config &config) noexcept;
 
   void update() noexcept;
 

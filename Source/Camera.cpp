@@ -3,7 +3,11 @@
 #include "Maths/Matrix.h"
 
 Camera::Camera(const Config &config) noexcept
-  : m_config(config) {
+  : m_config(config),
+    m_projectionMatrix(1.f),
+    m_viewMatrix(1.f),
+    m_projViewMatrx(1.f)
+{
   m_projectionMatrix = makeProjectionMatrix(config);
 
   position = {0, 0, -3.5};

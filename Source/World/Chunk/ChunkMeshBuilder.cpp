@@ -82,9 +82,12 @@ namespace {
 
 }
 
-ChunkMeshBuilder::ChunkMeshBuilder(ChunkSection &chunk,
-                                   ChunkMeshCollection &mesh)
-  : m_pChunk(&chunk), m_pMeshes(&mesh) {}
+ChunkMeshBuilder::ChunkMeshBuilder(
+  ChunkSection &chunk,
+  ChunkMeshCollection &mesh
+)
+  : m_pChunk(&chunk), m_pMeshes(&mesh)
+{}
 
 struct AdjacentBlockPositions {
   void update(int x, int y, int z) {
@@ -114,8 +117,9 @@ void ChunkMeshBuilder::buildMesh() {
     //ChunkBlock block = *blockPointer;
     //blockPointer++;
 
-    if (!shouldMakeLayer(y))
+    if (!shouldMakeLayer(y)) {
       continue;
+    }
 
     for (int8_t z = 0; z < CHUNK_SIZE; ++z)
       for (int8_t x = 0; x < CHUNK_SIZE; ++x) {
@@ -137,27 +141,58 @@ void ChunkMeshBuilder::buildMesh() {
           continue;
         }
 
-
         directions.update(x, y, z);
 
         //Up/ Down
-        if ((m_pChunk->getLocation().y != 0) || y != 0)
-          tryAddFaceToMesh(bottomFace, data.texBottomCoord, position,
-                           directions.down, LIGHT_BOT);
-        tryAddFaceToMesh(topFace, data.texTopCoord, position, directions.up,
-                         LIGHT_TOP);
+        if ((m_pChunk->getLocation().y != 0) || y != 0) {
+          tryAddFaceToMesh(bottomFace,
+            data.texBottomCoord,
+            position,
+            directions.down,
+            LIGHT_BOT
+          );
+        }
+
+        tryAddFaceToMesh(
+          topFace,
+          data.texTopCoord,
+          position,
+          directions.up,
+          LIGHT_TOP
+        );
 
         //Left/ Right
-        tryAddFaceToMesh(leftFace, data.texSideCoord, position,
-                         directions.left, LIGHT_X);
-        tryAddFaceToMesh(rightFace, data.texSideCoord, position,
-                         directions.right, LIGHT_X);
+        tryAddFaceToMesh(
+          leftFace,
+          data.texSideCoord,
+          position,
+          directions.left,
+          LIGHT_X
+        );
+
+        tryAddFaceToMesh(
+          rightFace,
+          data.texSideCoord,
+          position,
+          directions.right,
+          LIGHT_X
+        );
 
         //Front/ Back
-        tryAddFaceToMesh(frontFace, data.texSideCoord, position,
-                         directions.front, LIGHT_Z);
-        tryAddFaceToMesh(backFace, data.texSideCoord, position,
-                         directions.back, LIGHT_Z);
+        tryAddFaceToMesh(
+          frontFace,
+          data.texSideCoord,
+          position,
+          directions.front,
+          LIGHT_Z
+        );
+
+        tryAddFaceToMesh(backFace,
+          data.texSideCoord,
+          position,
+          directions.back,
+          LIGHT_Z
+        );
       }
   }
 }
@@ -178,47 +213,57 @@ void ChunkMeshBuilder::setActiveMesh(ChunkBlock block) {
   }
 }
 
-void ChunkMeshBuilder::addXBlockToMesh(const sf::Vector2i &textureCoords,
-                                       const sf::Vector3i &blockPosition) {
+void ChunkMeshBuilder::addXBlockToMesh(
+  const sf::Vector2i &textureCoords,
+  const sf::Vector3i &blockPosition
+) {
   faces++;
   auto texCoords = BlockDatabase::get().textureAtlas.getTexture(textureCoords);
 
-  m_pActiveMesh->addFace(xFace1,
-                         texCoords,
-                         m_pChunk->getLocation(),
-                         blockPosition,
-                         LIGHT_X);
+  m_pActiveMesh->addFace(
+    xFace1,
+    texCoords,
+    m_pChunk->getLocation(),
+    blockPosition,
+    LIGHT_X
+  );
 
-  m_pActiveMesh->addFace(xFace2,
-                         texCoords,
-                         m_pChunk->getLocation(),
-                         blockPosition,
-                         LIGHT_X);
+  m_pActiveMesh->addFace(
+    xFace2,
+    texCoords,
+    m_pChunk->getLocation(),
+    blockPosition,
+    LIGHT_X
+  );
 }
 
 
-void
-ChunkMeshBuilder::tryAddFaceToMesh(const std::array<GLfloat, 12> &blockFace,
-                                   const sf::Vector2i &textureCoords,
-                                   const sf::Vector3i &blockPosition,
-                                   const sf::Vector3i &blockFacing,
-                                   GLfloat cardinalLight) {
+void ChunkMeshBuilder::tryAddFaceToMesh(
+  const std::array<GLfloat, 12> &blockFace,
+  const sf::Vector2i &textureCoords,
+  const sf::Vector3i &blockPosition,
+  const sf::Vector3i &blockFacing,
+  GLfloat cardinalLight
+) {
   if (shouldMakeFace(blockFacing, *m_pBlockData)) {
     faces++;
-    auto texCoords = BlockDatabase::get().textureAtlas.getTexture(
-      textureCoords);
+    auto texCoords = BlockDatabase::get().textureAtlas.getTexture(textureCoords);
 
-    m_pActiveMesh->addFace(blockFace,
-                           texCoords,
-                           m_pChunk->getLocation(),
-                           blockPosition,
-                           cardinalLight);
+    m_pActiveMesh->addFace(
+      blockFace,
+      texCoords,
+      m_pChunk->getLocation(),
+      blockPosition,
+      cardinalLight
+    );
   }
 }
 
 
-bool ChunkMeshBuilder::shouldMakeFace(const sf::Vector3i &adjBlock,
-                                      const BlockDataHolder &blockData) {
+bool ChunkMeshBuilder::shouldMakeFace(
+  const sf::Vector3i &adjBlock,
+  const BlockDataHolder &blockData
+) {
   auto block = m_pChunk->getBlock(adjBlock.x, adjBlock.y, adjBlock.z);
   auto &data = block.getData();
 
@@ -236,16 +281,11 @@ bool ChunkMeshBuilder::shouldMakeLayer(int y) {
     return sect.getLayer(y).isAllSolid();
   };
 
-  return (!m_pChunk->getLayer(y).isAllSolid()) ||
-         (!m_pChunk->getLayer(y + 1).isAllSolid()) ||
-         (!m_pChunk->getLayer(y - 1).isAllSolid()) ||
-
-         (!adjIsSolid(1, 0)) ||
-         (!adjIsSolid(0, 1)) ||
-         (!adjIsSolid(-1, 0)) ||
-         (!adjIsSolid(0, -1));
-
+  return !m_pChunk->getLayer(y).isAllSolid()
+    || !m_pChunk->getLayer(y + 1).isAllSolid()
+    || !m_pChunk->getLayer(y - 1).isAllSolid()
+    || !adjIsSolid(1, 0)
+    || !adjIsSolid(0, 1)
+    || !adjIsSolid(-1, 0)
+    || !adjIsSolid(0, -1);
 }
-
-
-

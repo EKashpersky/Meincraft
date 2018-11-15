@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#include "../World/Block/BlockDatabase.h"
+
 sf::Font f;
 
 Player::Player()
@@ -11,12 +13,11 @@ Player::Player()
     m_acceleration(glm::vec3(0.f)) {
   f.loadFromFile("Res/Fonts/rs.ttf");
 
-
   for (int i = 0; i < 5; i++) {
     m_items.emplace_back(Material::NOTHING, 0);
   }
 
-  for (float i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; i++) {
     sf::Text t;
     t.setFont(f);
     t.setOutlineColor(sf::Color::Black);
@@ -33,13 +34,12 @@ Player::Player()
 void Player::addItem(const Material &material) {
   Material::ID id = material.id;
 
-  for (unsigned i = 0; i < m_items.size(); i++) {
-    if (m_items[i].getMaterial().id == id) {
-      /*int leftOver =*/ m_items[i].add(1);
-
+  for (auto& item : m_items) {
+    if (item.getMaterial().id == id) {
+      item.add(1);
       return;
-    } else if (m_items[i].getMaterial().id == Material::ID::Nothing) {
-      m_items[i] = {material, 1};
+    } else if (item.getMaterial().id == Material::ID::Nothing) {
+      item = {material, 1};
       return;
     }
   }
@@ -56,13 +56,13 @@ void Player::handleInput(const sf::RenderWindow &window, bool isMouseGrabbed) {
 
   if (m_itemDown.isKeyPressed()) {
     m_heldItem++;
-    if (m_heldItem == (int) m_items.size()) {
+    if (m_heldItem == static_cast<int>(m_items.size())) {
       m_heldItem = 0;
     }
   } else if (m_itemUp.isKeyPressed()) {
     m_heldItem--;
     if (m_heldItem == -1) {
-      m_heldItem = m_items.size() - 1;
+      m_heldItem = static_cast<int>(m_items.size() - 1);
     }
   }
 
@@ -103,7 +103,6 @@ void Player::update(float dt, World &world) {
     position.y = 300;
   }
 
-
   position.x += velocity.x * dt;
   collide(world, {velocity.x, 0, 0}, dt);
 
@@ -124,11 +123,20 @@ void Player::update(float dt, World &world) {
 
 
 void Player::collide(World &world, const glm::vec3 &vel, float dt) {
-  for (int x = position.x - box.dimensions.x;
-       x < position.x + box.dimensions.x; x++)
-    for (int y = position.y - box.dimensions.y; y < position.y + 0.7; y++)
-      for (int z = position.z - box.dimensions.z;
-           z < position.z + box.dimensions.z; z++) {
+  for (
+    int x = static_cast<int>(position.x - box.dimensions.x);
+    x < position.x + box.dimensions.x;
+    x++
+  )
+    for (
+      int y = static_cast<int>(position.y - box.dimensions.y);
+      y < position.y + 0.7;
+      y++
+    )
+      for (int z = static_cast<int>(position.z - box.dimensions.z);
+           z < position.z + box.dimensions.z;
+           z++
+      ) {
         auto block = world.getBlock(x, y, z);
 
         if (block != 0 && block.getData().isCollidable) {

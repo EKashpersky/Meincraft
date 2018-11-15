@@ -2,14 +2,14 @@
 
 #include <glad.h>
 
-
 void SFMLRenderer::add(const sf::Drawable &drawable) {
   m_draws.push_back(&drawable);
 }
 
 void SFMLRenderer::render(sf::RenderWindow &window) {
-  if (m_draws.empty())
+  if (m_draws.empty()) {
     return;
+  }
 
   glDisable(GL_DEPTH_TEST);
   glBindBuffer(GL_ARRAY_BUFFER, 0);

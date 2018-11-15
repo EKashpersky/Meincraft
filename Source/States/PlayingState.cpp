@@ -94,7 +94,6 @@ void StatePlaying::render(RenderMaster &renderer) {
     m_player.draw(renderer);
   }
 
-
   m_world.renderWorld(renderer, m_pApplication->getCamera());
 }
 

@@ -3,7 +3,9 @@
 #include <algorithm>
 
 ItemStack::ItemStack(const Material &material, int amount)
-  : m_pMaterial(&material), m_numInStack(amount) {}
+  : m_pMaterial(&material),
+    m_numInStack(amount)
+{}
 
 int ItemStack::add(int amount) {
   m_numInStack += amount;
